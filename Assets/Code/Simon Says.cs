@@ -86,6 +86,9 @@ public class SimonSays : MonoBehaviour
                     PlayKeySound(keyIndex);
                     playerIndex++;
 
+                    // Start a coroutine to reset the key after a short delay
+                    StartCoroutine(ResetKeyAfterDelay(keyIndex, 1.0f));
+
                     if (playerIndex >= sequence.Count)
                     {
                         // Player successfully completed the sequence
@@ -101,6 +104,13 @@ public class SimonSays : MonoBehaviour
             }
         }
     }
+
+    IEnumerator ResetKeyAfterDelay(int keyIndex, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ResetKeyVisuals(keyIndex);  // Switch back to default sprite
+    }
+
 
     IEnumerator HandleFailure()
     {
